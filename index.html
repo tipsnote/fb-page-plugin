@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Document</title>
+    <style type="text/css">
+        .wrap {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+        .page {
+            min-height: 500px;
+        }
+        .fb_iframe_widget,
+        .fb_iframe_widget span,
+        .fb_iframe_widget iframe[style]{
+          width: 100% !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.7&appId=";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <div class="wrap">
+        <div class="page" id="pageplugin">
+            <div class="fb-page" data-href="https://www.facebook.com/facebook" data-width="500" data-tabs="timeline" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/facebook">Facebook</a></blockquote></div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+    $(function () {
+        var windowWidth = $(window).width();
+        var htmlStr = $('#pageplugin').html();
+        var timer = null;
+        $(window).on('resize',function() {
+            var resizedWidth = $(window).width();
+            if(windowWidth != resizedWidth && resizedWidth < 500) {
+                clearTimeout(timer);
+                timer = setTimeout(function() {
+                    $('#pageplugin').html(htmlStr);
+                    window.FB.XFBML.parse();
+                    var windowWidth = $(window).width();
+                }, 500);
+            }
+        });
+    });
+</script>
+</body>
+</html>
